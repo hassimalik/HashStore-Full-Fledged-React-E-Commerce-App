@@ -45,7 +45,10 @@ HashStore is a **full-fledged e-commerce web application** built with **React**,
 <img width="1919" height="995" alt="image" src="https://github.com/user-attachments/assets/1c2b3cab-e9ad-414c-898e-374f7866d18d" />
 
 
-<img width="1919" height="995" alt="image" src="https://github.com/user-attachments/assets/90f773bd-c9d1-4a52-9eed-1db8b2f5e193" />
+<img width="743" height="853" alt="image" src="https://github.com/user-attachments/assets/1ccce67d-c6e2-428a-ae5b-5d80d2764fa7" />
+
+
+
 
 
 
