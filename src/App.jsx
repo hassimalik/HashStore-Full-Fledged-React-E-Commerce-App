@@ -14,6 +14,10 @@ import CategoryPage from './components/CategoryPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './App.css';
+import ShippingAndReturns from './components/ShippingandReturn';
+import SizeGuide from './components/SizeGuide';
+import OrderTracking from './components/OrderTracking';
+import FAQs from './components/FAQs';
 
 function App() {
   const [location, setLocation] = useState(null);
@@ -80,6 +84,10 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/shipping" element={<ShippingAndReturns/>}/>
+            <Route path="/sizeguide" element={<SizeGuide/>}/>
+            <Route path="/ordertracking" element={<OrderTracking/>}/>
+            <Route path="/faqs" element={<FAQs/>}/>
           </Routes>
         </main>
         <Footer />

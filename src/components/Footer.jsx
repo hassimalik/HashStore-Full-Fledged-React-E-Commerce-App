@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { FaFacebook, FaInstagram, FaPinterest, FaTwitterSquare } from 'react-icons/fa'
+import {  FaInstagram, FaLinkedin, FaWhatsapp, FaYoutube } from 'react-icons/fa'
 import gsap from 'gsap'
 
 const Footer = () => {
@@ -48,21 +48,23 @@ const Footer = () => {
                 <div ref={(el) => (elementRefs.current[1] = el)} className='mb-6 md:mb-0'>
                     <h3 className='text-xl font-semibold'>Customer Service</h3>
                     <ul className='mt-2 text-sm space-y-2'>
-                        <li>Contact Us</li>
-                        <li>Shipping & Returns</li>
-                        <li>FAQs</li>
-                        <li>Order Tracking</li>
-                        <li>Size Guide</li>
+                        <li>
+                            <Link to="/contact">Contact Us</Link>
+                        </li>
+                        <li><Link to="/shipping">Shipping & Returns</Link></li>
+                        <li><Link to="/faqs">FAQs</Link></li>
+                        <li ><Link to="ordertracking">Order Tracking</Link></li>
+                        <li ><Link to="/sizeguide">Size Guide</Link></li>
                     </ul>
                 </div>
                 {/* social media links */}
                 <div ref={(el) => (elementRefs.current[2] = el)} className='mb-6 md:mb-0'>
                     <h3 className='text-xl font-semibold'>Follow Us</h3>
                     <div className='flex space-x-4 mt-2'>
-                        <FaFacebook />
-                        <FaInstagram />
-                        <FaTwitterSquare />
-                        <FaPinterest />
+                        <a href="https://www.youtube.com/@codingthirst"><FaYoutube /></a>
+                        <a href="https://www.linkedin.com/in/hassaan-aslam-3b0798290/"><FaLinkedin/></a>
+                        <a href="https://www.instagram.com/codingthirst"><FaInstagram /></a>
+                        <a href="https://www.whatsapp.com/channel/0029Vb6dLXP4dTnMngokQf2x"><FaWhatsapp /></a>
                     </div>
                 </div>
                 {/* newsletter subscription */}
