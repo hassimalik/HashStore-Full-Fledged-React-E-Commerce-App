@@ -1,12 +1,56 @@
-# React + Vite
+# HashStore - Full-Fledged React E-Commerce App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-18.2.0-blue?logo=react&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.3.2-blue?logo=tailwindcss&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&logoColor=black)
+![GSAP](https://img.shields.io/badge/GSAP-3.12.2-green?logo=greensock&logoColor=white)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Overview
+HashStore is a **full-fledged e-commerce web application** built with **React**, **Tailwind CSS**, and **GSAP animations**. The app provides a seamless shopping experience with modern UI/UX, product carousels, order tracking, and interactive components.  
 
-## Expanding the ESLint configuration
+> *"A user-friendly e-commerce interface boosts customer engagement and satisfaction."* – Industry Best Practice  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Key Features
+- **Responsive Design:** Mobile-first layout compatible with all devices.
+- **Product Carousel:** Animated carousels for featured products using GSAP.
+- **User-Friendly UI/UX:** Clean design with Tailwind CSS and optimized visuals.
+- **Order Tracking & Returns:** Dedicated pages for order tracking and shipping policies.
+- **Size Guide & FAQs:** Helps users make informed purchase decisions.
+- **Social Media Integration:** Facebook, Instagram, Twitter, and Pinterest links.
+- **Optimized Performance:** Lazy loading images and efficient animations.
+
+---
+
+## Tech Stack
+- **Frontend:** React.js, Tailwind CSS, JavaScript (ES6+), GSAP
+- **State Management:** Context API
+- **Routing:** React Router
+- **Animations:** GSAP (GreenSock Animation Platform)
+- **Icons:** React Icons (FontAwesome)
+
+---
+
+## Installation & Setup
+1. Clone the repository:
+```bash
+git clone https://github.com/hassimalik/HashStore-Full-Fledged-React-E-Commerce-App-.git
+
+```
+Ecommerce/
+├─ public/
+├─ src/
+│  ├─ components/      # All React components (Carousel, Navbar, Footer, etc.)
+│  ├─ context/         # Context API files for theme & data
+│  ├─ pages/           # Shipping, Returns, Order Tracking, Size Guide, FAQs
+│  ├─ assets/          # Images, icons, fonts
+│  └─ App.jsx
+├─ package.json
+└─ README.md
+
+## Contact 
+Developer : Hassaan Aslam
+LinkedIn : https://www.linkedin.com/in/hassaan-aslam-3b0798290/
