@@ -19,11 +19,11 @@ function FilterSection({ onFilterChange }) {
 
   // Unique categories & brands
   const uniqueCategories = useMemo(
-    () => [...new Set(data.map(p => p.category).filter(Boolean))],
+    () => [...new Set(data.map((p) => p.category).filter(Boolean))],
     [data]
   );
   const uniqueBrands = useMemo(
-    () => [...new Set(data.map(p => p.brand).filter(Boolean))],
+    () => [...new Set(data.map((p) => p.brand).filter(Boolean))],
     [data]
   );
 
@@ -32,7 +32,7 @@ function FilterSection({ onFilterChange }) {
     if (data.length > 0) {
       const prices = data
         .map((p) => parseFloat(p.price))
-        .filter((price) => !isNaN(price) && price <= 500);
+        .filter((price) => !isNaN(price));
       const min = prices.length ? Math.floor(Math.min(...prices)) : 0;
       const max = prices.length ? Math.ceil(Math.max(...prices)) : 500;
       setPriceRange([min, max]);
@@ -92,22 +92,24 @@ function FilterSection({ onFilterChange }) {
   return (
     <div
       ref={containerRef}
-      className={`rounded-md mt-10 p-4 h-max w-64 transition-colors duration-500 ${
-        theme === "dark"
+      className={`rounded-md mt-10 p-4 h-max 
+        w-full sm:w-80 md:w-64 
+        transition-colors duration-500
+        ${theme === "dark"
           ? "bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white"
           : "bg-gray-100 text-gray-900"
-      }`}
+        }`}
     >
       {/* Search */}
       <input
         ref={(el) => (elementRefs.current[0] = el)}
         type="text"
         placeholder="Search..."
-        className={`p-2 border-2 rounded-md w-full transition-colors duration-500 ${
-          theme === "dark"
+        className={`p-2 border-2 rounded-md w-full transition-colors duration-500 mb-4
+          ${theme === "dark"
             ? "bg-gray-800 border-gray-600 text-white placeholder-gray-400"
             : "bg-white border-gray-400 text-gray-900"
-        }`}
+          }`}
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
       />
@@ -116,21 +118,20 @@ function FilterSection({ onFilterChange }) {
       <button
         ref={(el) => (elementRefs.current[1] = el)}
         onClick={handleResetAll}
-        className={`mt-4 w-full px-3 py-2 rounded-md font-semibold shadow-md transition-all duration-300 text-sm text-center
-          ${
-            theme === "dark"
-              ? "bg-gray-700 hover:bg-gray-600 text-white"
-              : "bg-gray-200 hover:bg-gray-300 text-gray-900"
+        className={`w-full px-3 py-2 rounded-md font-semibold shadow-md transition-all duration-300 text-sm text-center mb-4
+          ${theme === "dark"
+            ? "bg-gray-700 hover:bg-gray-600 text-white"
+            : "bg-gray-200 hover:bg-gray-300 text-gray-900"
           }`}
       >
         Reset All Filters
       </button>
 
       {/* Category */}
-      <h1 ref={(el) => (elementRefs.current[2] = el)} className="mt-5 font-semibold">
+      <h1 ref={(el) => (elementRefs.current[2] = el)} className="mt-2 font-semibold">
         Category
       </h1>
-      <div className="flex flex-col gap-2 mt-3">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 mt-2">
         {uniqueCategories.map((cat, i) => (
           <label
             ref={(el) => (elementRefs.current[i + 3] = el)}
@@ -151,14 +152,14 @@ function FilterSection({ onFilterChange }) {
       {/* Brand */}
       {uniqueBrands.length > 0 && (
         <>
-          <h1 ref={(el) => (elementRefs.current[uniqueCategories.length + 3] = el)} className="mt-5 font-semibold">
+          <h1 ref={(el) => (elementRefs.current[uniqueCategories.length + 3] = el)} className="mt-4 font-semibold">
             Brand
           </h1>
           <select
             ref={(el) => (elementRefs.current[uniqueCategories.length + 4] = el)}
-            className={`p-2 border-2 rounded-md w-full transition-colors duration-500 ${
-              theme === "dark" ? "bg-gray-800 border-gray-600 text-white" : "bg-white border-gray-400 text-gray-900"
-            }`}
+            className={`p-2 border-2 rounded-md w-full mt-2 transition-colors duration-500
+              ${theme === "dark" ? "bg-gray-800 border-gray-600 text-white" : "bg-white border-gray-400 text-gray-900"}
+            `}
             value={selectedBrand}
             onChange={(e) => setSelectedBrand(e.target.value)}
           >
@@ -175,8 +176,10 @@ function FilterSection({ onFilterChange }) {
       {/* Price */}
       {priceRange[0] !== priceRange[1] && (
         <>
-          <div ref={(el) => (elementRefs.current[uniqueCategories.length + 5] = el)}
-               className="flex justify-between items-center mt-5 font-semibold">
+          <div
+            ref={(el) => (elementRefs.current[uniqueCategories.length + 5] = el)}
+            className="flex justify-between items-center mt-4 font-semibold"
+          >
             <span>${priceRange[0]}</span>
             <span>${priceRange[1]}</span>
           </div>

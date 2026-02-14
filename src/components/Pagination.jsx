@@ -4,6 +4,7 @@ import { useTheme } from "../context/ThemeContext";
 function Pagination({ page, pageHandler, dynamicPage }) {
   const { theme } = useTheme();
 
+  // Pages generate karne ka logic
   const getPages = (current, total) => {
     const pages = [];
     if (total <= 5) {
@@ -17,18 +18,26 @@ function Pagination({ page, pageHandler, dynamicPage }) {
   };
 
   const pages = getPages(page, dynamicPage);
-  const baseBtnClasses = `px-3 py-1 rounded-md text-sm sm:text-base transition-all duration-300`;
+  const baseBtnClasses = `px-3 py-1 rounded-md text-sm sm:text-base transition-all duration-300 flex-shrink-0`;
 
   return (
-    <div className="flex flex-wrap justify-center gap-2 mt-8 overflow-x-auto">
+    <div className="flex flex-wrap justify-center gap-2 mt-6 sm:mt-8 overflow-x-auto px-2">
+      {/* Previous */}
       <button
         disabled={page === 1}
         onClick={() => pageHandler(page - 1)}
-        className={`${baseBtnClasses} ${page === 1 ? (theme === "dark" ? "bg-gray-700 text-gray-400 cursor-not-allowed" : "bg-gray-300 text-gray-500 cursor-not-allowed") : "bg-red-500 text-white hover:bg-red-600 hover:scale-105"}`}
+        className={`${baseBtnClasses} ${
+          page === 1
+            ? theme === "dark"
+              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-red-500 text-white hover:bg-red-600 hover:scale-105"
+        }`}
       >
         Prev
       </button>
 
+      {/* Page Numbers */}
       {pages.map((p, idx) => (
         <button
           key={idx}
@@ -48,10 +57,17 @@ function Pagination({ page, pageHandler, dynamicPage }) {
         </button>
       ))}
 
+      {/* Next */}
       <button
         disabled={page === dynamicPage}
         onClick={() => pageHandler(page + 1)}
-        className={`${baseBtnClasses} ${page === dynamicPage ? (theme === "dark" ? "bg-gray-700 text-gray-400 cursor-not-allowed" : "bg-gray-300 text-gray-500 cursor-not-allowed") : "bg-red-500 text-white hover:bg-red-600 hover:scale-105"}`}
+        className={`${baseBtnClasses} ${
+          page === dynamicPage
+            ? theme === "dark"
+              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-red-500 text-white hover:bg-red-600 hover:scale-105"
+        }`}
       >
         Next
       </button>

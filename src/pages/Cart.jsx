@@ -60,14 +60,14 @@ function Cart() {
 
   if (cartItem.length === 0) {
     return (
-      <div className={`flex flex-col items-center justify-center h-[60vh] transition-colors duration-300 ${
+      <div className={`flex flex-col items-center justify-center h-[60vh] transition-colors duration-300 px-4 ${
         theme === "light" ? "bg-gray-50 text-gray-800" : "bg-gray-900 text-gray-300"
       }`}>
-        <h2 className="text-2xl font-semibold mb-3">Your Cart is Empty 😢</h2>
-        <p>Add some products to see them here!</p>
+        <h2 className="text-2xl sm:text-3xl font-semibold mb-3 text-center">Your Cart is Empty 😢</h2>
+        <p className="text-center mb-4">Add some products to see them here!</p>
         <button
           onClick={() => navigate("/products")}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
         >
           Continue Shopping
         </button>
@@ -77,25 +77,25 @@ function Cart() {
   }
 
   return (
-    <div className={`max-w-6xl mx-auto p-6 transition-colors duration-300 ${
+    <div className={`max-w-6xl mx-auto p-4 sm:p-6 md:p-8 transition-colors duration-300 ${
       theme === "light" ? "bg-gray-50 text-gray-800" : "bg-gray-900 text-gray-200"
     }`}>
-      <h1 className="text-3xl font-bold mb-6">Your Cart</h1>
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-center md:text-left">Your Cart</h1>
 
       <div className="flex flex-col gap-4">
         {cartItem.map(item => (
           <div
             key={item.id}
-            className={`flex items-center justify-between p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 ${
+            className={`flex flex-col sm:flex-row items-center sm:justify-between p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 gap-4 sm:gap-0 ${
               theme === "light" ? "bg-white text-gray-800" : "bg-gray-800 text-gray-200"
             }`}
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 w-full sm:w-auto">
               <img src={item.thumbnail || item.image} alt={item.title} className="w-20 h-20 object-cover rounded-lg" />
-              <div className="flex flex-col">
-                <h2 className="font-semibold">{item.title}</h2>
-                <p className="text-gray-500">${item.price}</p>
-                <div className="flex items-center gap-2 mt-1">
+              <div className="flex flex-col flex-1">
+                <h2 className="font-semibold text-sm sm:text-base">{item.title}</h2>
+                <p className="text-gray-500 text-xs sm:text-sm">${item.price}</p>
+                <div className="flex items-center gap-2 mt-2">
                   <button
                     onClick={() => handleDecrease(item.id)}
                     className={`p-1 rounded transition-colors ${
@@ -116,7 +116,7 @@ function Cart() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-end gap-2">
+            <div className="flex flex-col items-end gap-2 mt-2 sm:mt-0">
               <button
                 onClick={() => handleRemove(item.id)}
                 className="text-red-500 hover:text-red-700 transition-colors"
@@ -129,11 +129,11 @@ function Cart() {
         ))}
       </div>
 
-      <div className={`flex justify-between items-center mt-6 p-4 rounded-xl ${
+      <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center mt-6 p-4 rounded-xl gap-4 sm:gap-0 ${
         theme === "light" ? "bg-gray-100 text-gray-800" : "bg-gray-800 text-gray-200"
       }`}>
-        <h2 className="text-xl font-semibold">Total: ${totalPrice.toFixed(2)}</h2>
-        <div className="flex gap-4">
+        <h2 className="text-lg sm:text-xl font-semibold">Total: ${totalPrice.toFixed(2)}</h2>
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
           <button
             onClick={handleClearCart}
             className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"

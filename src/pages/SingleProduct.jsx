@@ -13,7 +13,7 @@ function SingleProduct() {
     const [loading, setLoading] = useState(true);
     const [quantity, setQuantity] = useState(1); 
     const { cartItem, addToCart, increaseQty } = useCart();
-    const { theme } = useContext(ThemeContext); // ✅ Theme context
+    const { theme } = useContext(ThemeContext);
 
     const cartProduct = cartItem.find(item => item.id === Number(id));
 
@@ -84,26 +84,24 @@ function SingleProduct() {
     }
 
     return (
-        <div className={`max-w-screen mx-auto px-4 py-10 grid grid-cols-2 gap-10 transition-colors duration-300 ${
+        <div className={`max-w-screen-lg mx-auto px-4 py-10 sm:px-6 sm:py-12 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-8 transition-colors duration-300 ${
             theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
         }`}>
             {/* Product Image */}
-            <div className={`overflow-hidden rounded-lg shadow-lg w-full max-w-md mx-auto ${
+            <div className={`overflow-hidden rounded-lg shadow-lg w-full max-w-full mx-auto ${
                 theme === "dark" ? "bg-gray-800" : "bg-white"
             }`}>
                 <img
                     src={product.images?.[0]}
                     alt={product.title}
-                    className="w-full h-[400px] object-cover transform transition-transform duration-500 hover:scale-110"
+                    className="w-full h-80 md:h-[400px] object-cover transform transition-transform duration-500 hover:scale-110"
                 />
             </div>
 
             {/* Product Details */}
             <div className="flex flex-col gap-4">
-                <h1 className="text-3xl font-bold">{product.title}</h1>
-                <p className={`${
-                    theme === "dark" ? "text-gray-300" : "text-gray-600"
-                }`}>
+                <h1 className="text-2xl md:text-3xl font-bold">{product.title}</h1>
+                <p className={`${theme === "dark" ? "text-gray-300" : "text-gray-600"} text-sm md:text-base`}>
                     {product.description}
                 </p>
 
@@ -113,14 +111,10 @@ function SingleProduct() {
                 </p>
 
                 {/* Quantity + Price Section */}
-                <div className="flex items-center gap-4 mt-2">
+                <div className="flex items-center gap-3 mt-2 flex-wrap">
                     <button
                         onClick={handleDecrease}
-                        className={`p-2 rounded transition-colors ${
-                            theme === "dark" 
-                                ? "bg-gray-700 hover:bg-gray-600" 
-                                : "bg-gray-200 hover:bg-gray-300"
-                        }`}
+                        className={`p-2 rounded transition-colors ${theme === "dark" ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"}`}
                     >
                         <IoRemove size={20} />
                     </button>
@@ -129,16 +123,12 @@ function SingleProduct() {
 
                     <button
                         onClick={handleIncrease}
-                        className={`p-2 rounded transition-colors ${
-                            theme === "dark" 
-                                ? "bg-gray-700 hover:bg-gray-600" 
-                                : "bg-gray-200 hover:bg-gray-300"
-                        }`}
+                        className={`p-2 rounded transition-colors ${theme === "dark" ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"}`}
                     >
                         <IoAdd size={20} />
                     </button>
 
-                    <span className="ml-4 text-2xl font-bold text-red-500">
+                    <span className="ml-4 text-xl md:text-2xl font-bold text-red-500">
                         ${displayedPrice.toFixed(2)}
                     </span>
                 </div>
@@ -147,7 +137,7 @@ function SingleProduct() {
                 <div className="relative">
                     <button
                         onClick={handleAddToCart}
-                        className="px-6 py-3 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition mt-4 w-full"
+                        className="px-6 py-3 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition mt-4 w-full md:w-auto text-center"
                     >
                         {cartProduct ? "Update Cart" : "Add to Cart"}
                     </button>

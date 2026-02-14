@@ -12,13 +12,13 @@ const About = () => {
       }`}
     >
       <div
-        className={`max-w-5xl mx-auto rounded-2xl shadow-lg p-8 space-y-8 transition-colors duration-300 ${
+        className={`max-w-5xl mx-auto rounded-2xl shadow-lg p-6 sm:p-8 lg:p-10 space-y-8 transition-colors duration-300 ${
           theme === "light" ? "bg-white" : "bg-gray-800"
         }`}
       >
         {/* Heading */}
         <h1
-          className={`text-4xl font-bold text-center ${
+          className={`text-3xl sm:text-4xl md:text-5xl font-bold text-center ${
             theme === "light" ? "text-gray-900" : "text-white"
           }`}
         >
@@ -27,7 +27,7 @@ const About = () => {
 
         {/* Paragraph */}
         <p
-          className={`text-lg leading-relaxed ${
+          className={`text-base sm:text-lg md:text-xl leading-relaxed ${
             theme === "light" ? "text-gray-700" : "text-gray-300"
           }`}
         >
@@ -44,16 +44,16 @@ const About = () => {
         </p>
 
         {/* Mission Section */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <h2
-            className={`text-2xl font-semibold ${
+            className={`text-xl sm:text-2xl md:text-3xl font-semibold ${
               theme === "light" ? "text-red-600" : "text-red-400"
             }`}
           >
             Our Mission
           </h2>
           <p
-            className={`text-base ${
+            className={`text-sm sm:text-base md:text-lg ${
               theme === "light" ? "text-gray-700" : "text-gray-300"
             }`}
           >
@@ -64,10 +64,10 @@ const About = () => {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-10">
+        <div className="text-center mt-6 sm:mt-10">
           <Link to={"/products"}>
             <button
-              className={`px-6 py-2 rounded-xl font-medium transition duration-300 ${
+              className={`px-5 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition duration-300 text-sm sm:text-base md:text-lg ${
                 theme === "light"
                   ? "bg-red-600 text-white hover:bg-red-700"
                   : "bg-red-500 text-white hover:bg-red-600"

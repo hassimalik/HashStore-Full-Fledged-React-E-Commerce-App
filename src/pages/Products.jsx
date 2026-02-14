@@ -22,8 +22,8 @@ function Products() {
   const [filteredData, setFilteredData] = useState([]);
   const productsPerPage = 8;
 
-  const productRefs = useRef([]); // array of refs
-  const tl = useRef(gsap.timeline({ paused: true })); // better control
+  const productRefs = useRef([]); 
+  const tl = useRef(gsap.timeline({ paused: true }));
 
   useEffect(() => {
     fetchAllProducts();
@@ -72,21 +72,14 @@ function Products() {
     toast.success(`${product.title} added to cart!`, toastOptions);
   };
 
-  // GSAP animation - runs when currentProducts change
+  // GSAP animation
   useEffect(() => {
-    // Clear old refs
     productRefs.current = [];
-
-    // Kill and reset timeline
-    if (tl.current) {
-      tl.current.kill();
-    }
+    if (tl.current) tl.current.kill();
     tl.current = gsap.timeline();
 
-    // Set initial hidden state for new elements
     tl.current.set(productRefs.current.filter(Boolean), { opacity: 0, y: 50 });
 
-    // Animate in
     tl.current.to(productRefs.current.filter(Boolean), {
       opacity: 1,
       y: 0,
@@ -96,41 +89,44 @@ function Products() {
       force3D: true,
     });
 
-    // Play the timeline
     tl.current.play();
 
-    // Cleanup on unmount or re-run
     return () => {
       if (tl.current) tl.current.kill();
     };
-  }, [currentProducts]); // depend on currentProducts
+  }, [currentProducts]);
 
   return (
-    <div className={`w-full py-6 px-4 mb-10 transition-colors duration-300 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}>
+    <div className={`w-full py-6 px-4 sm:px-6 md:px-10 lg:px-16 mb-10 transition-colors duration-300 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}>
       {data?.length > 0 ? (
-        <div className="flex gap-8 flex-wrap">
-          <FilterSection onFilterChange={setFilters} />
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Filter Section */}
+          <div className="w-full lg:w-72 flex-shrink-0">
+            <FilterSection onFilterChange={setFilters} />
+          </div>
+
+          {/* Products Grid */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
               {currentProducts.map((product, index) => (
                 <div
                   key={product.id}
                   ref={el => {
                     if (el) productRefs.current[index] = el;
                   }}
-                  className={`rounded-2xl flex flex-col gap-3 w-70 h-90 overflow-hidden shadow-lg cursor-pointer transition-shadow duration-300 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"}`}
+                  className={`rounded-2xl flex flex-col gap-3 overflow-hidden shadow-lg cursor-pointer transition-shadow duration-300 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"}`}
                 >
-                  <div className={`w-70 h-50 flex justify-center items-center overflow-hidden ${theme === "dark" ? "bg-gray-700" : "bg-[#00000025]"}`}>
+                  <div className={`w-full h-56 flex justify-center items-center overflow-hidden ${theme === "dark" ? "bg-gray-700" : "bg-[#00000025]"}`}>
                     <img
                       src={product.thumbnail || product.image}
                       alt={product.title}
                       onClick={() => navigate(`/products/${product.id}`)}
-                      className="w-40 object-cover cursor-pointer" // Removed hover:scale + transition-transform (conflict fix)
+                      className="w-full h-full object-cover cursor-pointer"
                       loading="lazy"
                     />
                   </div>
-                  <div className="p-5 flex flex-col items-start gap-2 w-full">
-                    <h3 className="font-semibold break-words">{product.title}</h3>
+                  <div className="p-4 flex flex-col gap-2 w-full">
+                    <h3 className="font-semibold break-words line-clamp-2">{product.title}</h3>
                     <p className="font-medium">${product.price}</p>
                     <button
                       onClick={() => handleAddToCart(product)}
@@ -143,6 +139,7 @@ function Products() {
               ))}
             </div>
 
+            {/* Pagination */}
             {dynamicPage > 1 && (
               <div className="mt-8">
                 <Pagination pageHandler={pageHandler} page={page} dynamicPage={dynamicPage} />

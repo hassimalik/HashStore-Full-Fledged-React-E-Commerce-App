@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useMemo } from "react";
+import { useContext, useMemo, useRef, useEffect } from "react";
 import { DataContext } from "../context/DataContext";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
@@ -10,57 +10,58 @@ function Category() {
   const navigate = useNavigate();
   const categoryRef = useRef([]);
 
-  // ✅ Memoized categories (re-render pe dobara calculate nahi hongi)
   const categoryOnlyData = useMemo(() => {
     if (!data?.length) return [];
     return [...new Set(data.map((item) => item.category))];
   }, [data]);
 
-  // ✅ Animation sirf first time run hogi
   useEffect(() => {
     if (!categoryOnlyData.length) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        categoryRef.current,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          stagger: 0.08,
-          ease: "power2.out",
-          duration: 0.5,
-        }
-      );
-    });
+    // GSAP timeline for smooth stagger
+    const tl = gsap.timeline();
+    tl.fromTo(
+      categoryRef.current,
+      { opacity: 0, y: 20, scale: 0.8 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.5,
+        ease: "power3.out",
+        stagger: {
+          each: 0.08,
+          from: "start",
+        },
+      }
+    );
 
-    return () => ctx.revert(); // cleanup
-  }, []); // ❗ dependency empty rakhi — repeat nahi hogi
+    return () => {
+      tl.kill();
+    };
+  }, [categoryOnlyData]);
 
   return (
     <div
-      className={`transition-colors duration-500 ${
-        theme === "dark"
-          ? "bg-gradient-to-r from-[rgb(22,11,116)] via-[#2267b6] to-[#076161]"
-          : "bg-gradient-to-r from-[#93a09f] via-[#e59980] to-[#c54e5c]"
-      }`}
+      className={`transition-colors duration-500  ${
+                theme === "dark"
+                  ? "bg-[#0c3b3b]"
+                  : "bg-red-400"
+              } py-4 px-2`}
+      style={{ height: "auto" }}
     >
-      <div className="max-w-[1400px] mx-auto flex flex-wrap items-center justify-center sm:justify-around gap-3 sm:gap-5 py-3 px-2">
+      <div className="flex flex-wrap justify-center gap-3 w-full">
         {categoryOnlyData.map((cat, i) => (
           <button
-            ref={(el) => (categoryRef.current[i] = el)}
             key={cat}
-            onClick={() =>
-              navigate(`/category/${encodeURIComponent(cat)}`)
-            }
-            className={`uppercase px-4 sm:px-5  sm:py-3 rounded-md font-semibold shadow-md transition-all duration-300 text-sm sm:text-base
+            ref={(el) => (categoryRef.current[i] = el)}
+            onClick={() => navigate(`/category/${encodeURIComponent(cat)}`)}
+            className={`px-4 py-2 rounded-full font-semibold shadow-md transition-transform duration-300 transform hover:scale-105 cursor-pointer whitespace-nowrap
               ${
                 theme === "dark"
-                  ? "bg-gray-800 text-white hover:bg-gray-700"
-                  : "bg-[#d3df6a6e] text-[#0a2636] hover:bg-orange-100"
-              }
-              hover:scale-105 active:scale-95
-            `}
+                  ? "bg-[#5f0808] text-white hover:bg-blue-500"
+                  : "bg-red-400 text-white hover:bg-red-500"
+              }`}
           >
             {cat}
           </button>

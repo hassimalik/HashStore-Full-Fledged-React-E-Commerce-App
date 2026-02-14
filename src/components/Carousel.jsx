@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { gsap } from "gsap";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import "./carousal.css"
+import "./carousal.css";
 
 function Carousel() {
   const { data, loading } = useContext(DataContext);
@@ -25,7 +25,6 @@ function Carousel() {
     if (el) arr.current[i] = el;
   };
 
-  /* ----------- Optimized Animation ----------- */
   const animateSlide = (i) => {
     const items = [
       titleRefs.current[i],
@@ -47,7 +46,6 @@ function Carousel() {
     );
   };
 
-  /* ----------- Preload First Image ----------- */
   useEffect(() => {
     if (data?.length > 0) {
       const img = new Image();
@@ -56,7 +54,6 @@ function Carousel() {
     }
   }, [data]);
 
-  /* ----------- Slider Settings ----------- */
   const settings = {
     dots: false,
     infinite: true,
@@ -72,18 +69,17 @@ function Carousel() {
     afterChange: (i) => animateSlide(i),
   };
 
-  /* ----------- Skeleton Loader ----------- */
   if (loading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
-        <div className="w-32 h-32 rounded-full bg-gray-300 animate-pulse"></div>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="w-24 h-24 rounded-full bg-gray-300 animate-pulse"></div>
       </div>
     );
   }
 
   if (!data || data.length === 0) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="min-h-[60vh] flex items-center justify-center">
         <p>No products found</p>
       </div>
     );
@@ -95,32 +91,46 @@ function Carousel() {
         {data.slice(0, 6).map((item, index) => (
           <div key={item.id}>
             <div
-              className={`min-h-[93vh] flex items-center ${
+              className={`min-h-[92vh] flex items-center ${
                 theme === "dark"
                   ? "bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e]"
                   : "bg-gradient-to-r from-cyan-200 via-sky-200 to-blue-100"
               }`}
             >
-              <div className="max-w-6xl mx-auto mb-17  px-5 py-16 flex flex-col md:flex-row items-center justify-between gap-60">
+              <div className="max-w-6xl mx-auto 
+                              px-6 py-14 
+                              flex flex-col 
+                              md:flex-row 
+                              items-center 
+                              justify-between 
+                              gap-16 
+                              md:gap-14 
+                              lg:gap-100">
+
                 {/* TEXT */}
-                <div className="max-w-xl  space-y-8 text-center md:text-left">
+                <div className="w-full md:w-1/2 lg:max-w-xl 
+                                space-y-6 
+                                text-center md:text-left 
+                                order-2 md:order-1">
+
                   <h3
                     ref={(el) => keepRef(titleRefs, el, index)}
-                    className="text-2xl font-semibold text-red-500"
+                    className="text-xl md:text-2xl font-semibold text-red-500"
                   >
                     Premium Electronics Collection
                   </h3>
 
                   <h1
-                    className={`text-4xl fnt  tracking-tight sm:text-4xl md:text-6xl  ${
+                    className={`text-3xl md:text-4xl lg:text-6xl tracking-tight ${
                       theme === "dark" ? "text-white" : "text-[#2e213c]"
                     }`}
                   >
                     {item.title}
                   </h1>
+
                   <p
                     ref={(el) => keepRef(descRefs, el, index)}
-                    className={`text-sm  sm:text-base ${
+                    className={`text-sm md:text-base leading-relaxed ${
                       theme === "dark" ? "text-gray-200" : "text-gray-800"
                     }`}
                   >
@@ -137,13 +147,11 @@ function Carousel() {
                 </div>
 
                 {/* IMAGE */}
-                <div className="flex justify-center">
+                <div className="w-full md:w-1/2 flex justify-center order-1 md:order-2">
                   <img
                     src={item.thumbnail}
                     alt={item.title}
-                    width={320}
-                    height={320}
-                    className="w-52 sm:w-64 md:w-80 aspect-square rounded-full shadow-2xl object-cover"
+                    className="w-60 md:w-72 lg:w-80 aspect-square rounded-full shadow-2xl object-cover"
                     loading="lazy"
                   />
                 </div>
@@ -153,42 +161,21 @@ function Carousel() {
         ))}
       </Slider>
 
-      {/* CUSTOM ARROWS */}
+      {/* ARROWS */}
       <button
         onClick={() => sliderRef.current?.slickPrev()}
-        className="absolute top-1/2 left-2 sm:left-4 -translate-y-1/2 z-20"
+        className="hidden md:block absolute top-1/2 left-4 -translate-y-1/2 z-20"
       >
-        <FiChevronLeft className="w-10 h-10 sm:w-12 sm:h-12 text-red-500" />
+        <FiChevronLeft className="w-10 h-10 text-red-500" />
       </button>
 
       <button
         onClick={() => sliderRef.current?.slickNext()}
-        className="absolute top-1/2 right-2 sm:right-4 -translate-y-1/2 z-20"
+        className="hidden md:block absolute top-1/2 right-4 -translate-y-1/2 z-20"
       >
-        <FiChevronRight className="w-10 h-10 sm:w-12 sm:h-12 text-red-500" />
+        <FiChevronRight className="w-10 h-10 text-red-500" />
       </button>
-
-      {/* THUMBNAILS */}
-      <div className="absolute bottom-6 w-full flex justify-center gap-3 sm:gap-4">
-        {data.slice(0, 6).map((item, idx) => (
-          <div
-            key={item.id}
-            onClick={() => sliderRef.current?.slickGoTo(idx)}
-            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full cursor-pointer transition-all duration-300 ${
-              idx === activeIndex
-                ? "ring-4 ring-[#16deca] scale-110"
-                : "opacity-60"
-            }`}
-          >
-            <img
-              src={item.thumbnail}
-              alt={item.title}
-              className="w-full h-full rounded-full object-cover"
-              loading="lazy"
-            />
-          </div>
-        ))}
-      </div>
+      
     </div>
   );
 }
